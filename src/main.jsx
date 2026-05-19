@@ -10,10 +10,11 @@ createRoot(document.getElementById('root')).render(
   <StrictMode>
     <BrowserRouter>
       <Routes>
-        <Route path="/" element={<App/>}/>
-        <Route path="/home" element={<Home/>}/>
-        <Route path="/profile/:userId" element={<Profile/>}/>
+        <Route path="/" element={<App/>}>
+          <Route index element={<Home/>}/>
+          <Route path="/profile/:userId" element={<Profile/>}/>
+        </Route>
       </Routes>
     </BrowserRouter>
-  </StrictMode>,
+  </StrictMode>
 );
