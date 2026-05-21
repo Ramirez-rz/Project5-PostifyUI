@@ -6,12 +6,22 @@ const useFetch = (url) => {
     const[error,setError] = useState(null);
 
     useEffect(() => {
+        if (!url) {
+            setData([]);
+            setError(null);
+            setLoading(false);
+            return;
+        }
+
         const getData = async () => {
             try{
                 setLoading(true)
+                setError(null);
                 const res = await fetch(url)
                 if (!res.ok){
-                    throw new Error(res.status)
+                    const response = await res.json()
+                    const detail = Array.isArray(response.detail) ? response.detail[0]?.msg : response.detail;
+                    throw new Error(detail || res.status)
                 }
                 const response = await res.json()
                 setData(response)
